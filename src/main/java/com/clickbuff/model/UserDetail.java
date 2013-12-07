@@ -52,8 +52,14 @@ public class UserDetail {
 	@Column(name="BIRTH_DATE")
 	private Date dob;
 	
-	@Column(name="NAME")
-	private String name;
+	@Column(name="FIRST_NAME")
+	private String fName;
+	
+	@Column(name="LAST_NAME")
+	private String lName;
+	
+	@Column(name="GENDER")
+	private 
 	
 	
 	
@@ -69,17 +75,12 @@ public class UserDetail {
 	public void setAuthority(Authority authority) {
 		this.authority = authority;
 	}
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
+
+	public String getfName() {
+		return fName;
 	}
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setfName(String fName) {
+		this.fName = fName;
 	}
 	/**
 	 * @return the dob
@@ -194,6 +195,12 @@ public class UserDetail {
 	 */
 	public void setFavPassTime(String favPassTime) {
 		this.favPassTime = favPassTime;
+	}
+	public String getlName() {
+		return lName;
+	}
+	public void setlName(String lName) {
+		this.lName = lName;
 	}
 	
 	

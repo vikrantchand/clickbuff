@@ -4,10 +4,9 @@ package test.training.impetus.tp.controller;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.clickbuff.controller.UserController;
-import com.clickbuff.enums.UserAuthority;
+import com.clickbuff.enums.UserAuthorityType;
 import com.clickbuff.model.Authority;
 import com.clickbuff.model.User;
 import com.clickbuff.model.UserDetail;
@@ -25,7 +24,7 @@ public class TestDao {
 		u.setAltEmail("asdasdasd");
 		u.setAltMobileNo("45454");
 		u.setEmail("asfasf");
-		auto.setUserAuthority(UserAuthority.CLIENT);
+		auto.setUserAuthority(UserAuthorityType.CLIENT);
 	User user=new User();
 	auto.setUser(user);
 	user.setAuthority(auto);

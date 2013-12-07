@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.clickbuff.enums.UserAuthority;
+import com.clickbuff.enums.UserAuthorityType;
 
 @Entity
 @Table(name = "AUTHORITIES")
@@ -23,7 +23,7 @@ public class Authority {
 	private Integer id;
 
 	@Column(name = "AUTHORITY")
-	private UserAuthority userAuthority;
+	private UserAuthorityType userAuthority;
 	
 	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name="USER_ID")
@@ -47,7 +47,7 @@ public class Authority {
 	/**
 	 * @return the userAuthority
 	 */
-	public UserAuthority getUserAuthority() {
+	public UserAuthorityType getUserAuthority() {
 		return userAuthority;
 	}
 
@@ -55,7 +55,7 @@ public class Authority {
 	 * @param userAuthority
 	 *            the userAuthority to set
 	 */
-	public void setUserAuthority(UserAuthority userAuthority) {
+	public void setUserAuthority(UserAuthorityType userAuthority) {
 		this.userAuthority = userAuthority;
 	}
 
