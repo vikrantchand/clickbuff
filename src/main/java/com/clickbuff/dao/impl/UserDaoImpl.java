@@ -8,7 +8,6 @@ import org.springframework.util.Assert;
 
 import com.clickbuff.commons.dao.GenericJpaDao;
 import com.clickbuff.dao.UserDao;
-import com.clickbuff.exceptions.CustomException;
 import com.clickbuff.exceptions.FrameworkException;
 import com.clickbuff.model.UserDetail;
 
