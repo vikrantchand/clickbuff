@@ -92,6 +92,7 @@
 		</property>
 	</bean>
 	<bean id="userController" class="com.clickbuff.controller.UserController"></bean>
+	<bean id="shopDao" class="com.clickbuff.dao.impl.ShopDaoImpl"></bean>
 	
 	<!-- <bean id="payCheckThread" class="training.impetus.tp.scheduler.PayCheckThread" scope="prototype"></bean> -->
 

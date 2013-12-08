@@ -1,43 +1,40 @@
 package com.clickbuff.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "USERS")
 public class User {
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="USER_ID")
-    private Integer id;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "USER_ID")
+	private Integer id;
+
 	@Column(name = "USER_NAME")
 	private String userName;
-	
+
 	@Column(name = "ENABLED")
 	private boolean isEnabled;
 
-	@OneToOne(mappedBy="user",cascade=CascadeType.ALL)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Authority authority;
 
 	@Column(name = "PASSWORD")
 	private String password;
-	
 
-	
 	public Integer getId() {
 		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public Authority getAuthority() {
@@ -71,5 +68,23 @@ public class User {
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
 	}
+
+	/*
+	 * For Future use If required
+	 * 
+	 * @OneToMany(mappedBy = "sender") private List<Message> sentMsgs;
+	 * 
+	 * @OneToMany(mappedBy = "receiver") private List<Message> receivedMsgs;
+	 * 
+	 * public List<Message> getSentMsgs() { return sentMsgs; }
+	 * 
+	 * public void setSentMsgs(List<Message> sentMsgs) { this.sentMsgs =
+	 * sentMsgs; }
+	 * 
+	 * public List<Message> getReceivedMsgs() { return receivedMsgs; }
+	 * 
+	 * public void setReceivedMsgs(List<Message> receivedMsgs) {
+	 * this.receivedMsgs = receivedMsgs; }
+	 */
 
 }

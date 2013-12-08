@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.clickbuff.commons.doamin.BaseEntity;
 
@@ -119,6 +120,7 @@ public abstract class GenericJpaDao<T, ID extends Serializable> implements
 	 * save the persistent entity
 	 * @return PersistentEntity
 	 */
+	@Transactional
 	public T save(T entity) {
 		
 		LOGGER.trace("Saving new Entity"+entity.getClass().getSimpleName());
