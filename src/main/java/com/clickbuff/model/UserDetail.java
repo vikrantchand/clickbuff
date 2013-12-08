@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.clickbuff.enums.GenderType;
+
 @Entity
 @Table(name="USER_DETAILS")
 public class UserDetail {
@@ -59,7 +61,7 @@ public class UserDetail {
 	private String lName;
 	
 	@Column(name="GENDER")
-	private 
+	private GenderType gender;
 	
 	
 	
@@ -201,6 +203,12 @@ public class UserDetail {
 	}
 	public void setlName(String lName) {
 		this.lName = lName;
+	}
+	public GenderType getGender() {
+		return gender;
+	}
+	public void setGender(GenderType gender) {
+		this.gender = gender;
 	}
 	
 	
