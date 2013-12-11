@@ -1,16 +1,14 @@
 package com.clickbuff.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 @Table(name = "USERS")
@@ -27,8 +25,9 @@ public class User {
 	@Column(name = "ENABLED")
 	private boolean isEnabled;
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	private Authority authority;
+/*	@JsonIgnore
+	@OneToOne(mappedBy = "user")
+	private Authority authority;*/
 
 	@Column(name = "PASSWORD")
 	private String password;
@@ -37,13 +36,13 @@ public class User {
 		return id;
 	}
 
-	public Authority getAuthority() {
+/*	public Authority getAuthority() {
 		return authority;
 	}
 
 	public void setAuthority(Authority authority) {
 		this.authority = authority;
-	}
+	}*/
 
 	public String getUserName() {
 		return userName;
