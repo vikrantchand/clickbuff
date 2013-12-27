@@ -1,4 +1,4 @@
-/*package test.training.impetus.tp.controller;
+package test.training.impetus.tp.controller;
 
 
 
@@ -35,7 +35,6 @@ public class TestDao {
 		auto.setUserAuthority(UserAuthorityType.CLIENT);
 	User user=new User();
 	auto.setUser(user);
-	user.setAuthority(auto);
 	user.setEnabled(true);
 	user.setPassword("sdfsdf");
 	user.setUserName("ee");
@@ -60,4 +59,3 @@ public class TestDao {
 	}
 
 }
-*/

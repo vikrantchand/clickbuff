@@ -2,12 +2,16 @@ package com.clickbuff.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +26,8 @@ public class Category {
 	@Column(name = "CATEGORY_NAME")
 	private String categoryName;
 
-	@OneToMany(mappedBy = "category")
+	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@JoinColumn(name="SHOP_ID")
 	private Set<Shop> shops;
 
 	public Set<Shop> getShops() {

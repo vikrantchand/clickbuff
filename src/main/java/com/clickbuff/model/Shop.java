@@ -44,9 +44,9 @@ public class Shop {
 	@Column(name = "LAST_UPDATED")
 	private Date lastUpdated;
 
-	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+/*	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name = "CATEGORY_ID")
-	private Category category;
+	private Category category;*/
 	
 	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name = "SHOP_ID")
@@ -68,13 +68,13 @@ public class Shop {
 		this.shopId = shopId;
 	}
 
-	public Category getCategory() {
+/*	public Category getCategory() {
 		return category;
 	}
 
 	public void setCategory(Category category) {
 		this.category = category;
-	}
+	}*/
 
 	public String getOwnerName() {
 		return ownerName;
