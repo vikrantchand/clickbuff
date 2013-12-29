@@ -15,5 +15,9 @@ public interface ShopService {
 	  public  Shop addShop(Shop shop);
 
 	  public  Boolean deleteShopById(int id);
-
+	  
+	  public  void delete(Shop shop);
+	  
+	  public Shop updateShop(Shop shop);
+	  
 }

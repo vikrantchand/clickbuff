@@ -30,7 +30,14 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	public Boolean deleteShopById(int id) {
-		return null;
+		return shopDao.deleteShopById(id);
+	}
+	public void delete(Shop shop) {
+		shopDao.delete(shop);
+	}
+
+	public Shop updateShop(Shop shop) {
+		return shopDao.update(shop);
 	}
 
 }

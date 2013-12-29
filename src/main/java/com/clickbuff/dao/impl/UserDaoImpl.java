@@ -133,7 +133,7 @@ public class UserDaoImpl extends GenericJpaDao<UserDetail, Integer> implements U
 				
 				LOGGER.info("Something gone wrong error throwing exception");
 				
-				throw new FrameworkException("ERR001", "Can not blocking user");
+				throw new FrameworkException("ERR001", "Can not block user");
 			}
 		
 	}
