@@ -29,10 +29,7 @@ public class ShopDaoImpl extends GenericJpaDao<Shop, Integer> implements
 
 		Assert.notNull(id);
 
-		Query query = getEntityManager().createQuery(
-				"delete from  shop u "
-						+ "  where u.shop.id = :id").setParameter(
-				"id", id);
+		Query query = getEntityManager().createNativeQuery("delete from shops where shop_id=?").setParameter(0, id);
 
 
 		int effectedRows = query.executeUpdate();

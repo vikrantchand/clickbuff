@@ -5,6 +5,7 @@ import com.clickbuff.model.Category;
 
 public interface CategoryDao extends GenericDao<Category, Integer> {
 	
+	public Boolean deleteCategoryById(Integer id);
 	
 
 }

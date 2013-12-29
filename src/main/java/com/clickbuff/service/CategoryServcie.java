@@ -12,4 +12,6 @@ public abstract interface CategoryServcie
   public  Category addCategory(Category paramCategory);
 
   public  Boolean deleteCategoryById(int paramInt);
+  
+  public Category updateCategory(Category category);
 }

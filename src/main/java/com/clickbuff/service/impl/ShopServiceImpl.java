@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.clickbuff.dao.ShopDao;
 import com.clickbuff.model.Category;
@@ -15,27 +16,33 @@ public class ShopServiceImpl implements ShopService {
 
 	@Autowired
 	private ShopDao shopDao;
+
 	public List<Shop> getAllShops() {
-		
+
 		return shopDao.findAll();
 	}
 
-	public Shop  getShopById(int id) {
-		
+	public Shop getShopById(int id) {
+
 		return shopDao.findById(id);
 	}
 
+	@Transactional
 	public Shop addShop(Shop shop) {
 		return shopDao.save(shop);
 	}
 
+	@Transactional
 	public Boolean deleteShopById(int id) {
 		return shopDao.deleteShopById(id);
 	}
+
+	@Transactional
 	public void delete(Shop shop) {
 		shopDao.delete(shop);
 	}
 
+	@Transactional
 	public Shop updateShop(Shop shop) {
 		return shopDao.update(shop);
 	}

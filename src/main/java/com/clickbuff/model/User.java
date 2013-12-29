@@ -9,8 +9,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown=true)
 @Table(name = "USERS")
 public class User {
 

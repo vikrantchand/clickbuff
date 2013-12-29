@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -43,6 +42,9 @@ public class Shop {
 
 	@Column(name = "LAST_UPDATED")
 	private Date lastUpdated;
+	
+	@Column(name = "CATEGORY_ID")
+	private Integer categoryId;
 
 /*	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name = "CATEGORY_ID")
@@ -130,6 +132,14 @@ public class Shop {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 }
