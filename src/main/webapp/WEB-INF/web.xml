@@ -10,7 +10,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<display-name>Click Buff</display-name>
 
 	<!-- Spring Security configration -->
-<!-- 	<filter>
+	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
@@ -18,7 +18,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
- -->
+
 
 	<!-- Welcome File -->
 	<welcome-file-list>
@@ -62,7 +62,8 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:spring/application-config.xml,
 								classpath:spring/spring-database.xml,
-								classpath:spring/Spring-Mail.xml
+								classpath:spring/Spring-Mail.xml,
+								classpath:spring/spring-security.xml
 		</param-value>
 	</context-param>
 
