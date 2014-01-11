@@ -25,8 +25,7 @@ public class UserController {
 	private static final Logger LOGGER = Logger.getLogger(UserController.class);
 	
 	@RequestMapping(method = RequestMethod.GET, produces = CBConstants.CONTENT_TYPE)
-	@ResponseBody	
-	public List<UserDetail> getAllUsers(){
+	public 	@ResponseBody List<UserDetail> getAllUsers(){
 		
 		LOGGER.info("Calling UserService getAllUsers()");
 		

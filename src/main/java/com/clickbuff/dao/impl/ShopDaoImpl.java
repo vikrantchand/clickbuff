@@ -52,6 +52,15 @@ public class ShopDaoImpl extends GenericJpaDao<Shop, Integer> implements
 			throw new FrameworkException("ERR001", "Can not Delete Shop");
 		}
 	}
+
+	public int increaseClickByOne(Integer shopId, String userName) {
+		
+		Query query = getEntityManager().createNativeQuery("insert into user_clicks('"+shopId+"','"+userName+"')");
+		
+		int i=query.executeUpdate();
+		
+		return 1;
+	}
 	
 	
 

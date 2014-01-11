@@ -2,7 +2,6 @@ package com.clickbuff.service;
 
 import java.util.List;
 
-import com.clickbuff.model.Category;
 import com.clickbuff.model.Shop;
 
 
@@ -19,5 +18,7 @@ public interface ShopService {
 	  public  void delete(Shop shop);
 	  
 	  public Shop updateShop(Shop shop);
+	  
+	  public int increaseClickCount(int shopId);
 	  
 }

@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -34,8 +36,11 @@ public class Shop {
 	@Column(name = "AVAILABLE_ITEMS")
 	private String itemsAvailable;
 
-	@Column(name = "CLICKS")
-	private Integer clicks;
+	@ManyToMany(cascade = {CascadeType.ALL} ,fetch=FetchType.EAGER)
+    @JoinTable(name="User_Clicks", 
+                joinColumns={@JoinColumn(name="SHOP_ID")}, 
+                inverseJoinColumns={@JoinColumn(name="USER_NAME")})
+	private Set<User> Users;
 
 	@Column(name = "ADDED_DATE")
 	private Date addedDate;
@@ -102,14 +107,6 @@ public class Shop {
 		this.itemsAvailable = itemsAvailable;
 	}
 
-	public Integer getClicks() {
-		return clicks;
-	}
-
-	public void setClicks(Integer clicks) {
-		this.clicks = clicks;
-	}
-
 	public Date getAddedDate() {
 		return addedDate;
 	}
@@ -140,6 +137,14 @@ public class Shop {
 
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public Set<User> getUsers() {
+		return Users;
+	}
+
+	public void setUsers(Set<User> users) {
+		Users = users;
 	}
 
 }

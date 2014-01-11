@@ -43,10 +43,10 @@ public class TestDao {
 		new TestDao().userController.addUser(u);
 		
 		Shop s=new Shop();
-		
+		s.setCategoryId(1);
 		s.setAddedDate(new Date());
 		s.setLastUpdated(new Date());
-		s.setClicks(45);
+		
 		Set<ShopImageName> s1=new HashSet<ShopImageName>();
 		ShopImageName f=new ShopImageName();
 		f.setImageName("sfdsdfsdf");

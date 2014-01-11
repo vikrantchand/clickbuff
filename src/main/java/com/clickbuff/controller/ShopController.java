@@ -64,5 +64,14 @@ public class ShopController {
 		
 
 	}
+	
+	@RequestMapping(value="{shopId}/{click}",method = RequestMethod.PUT ,produces=CBConstants.CONTENT_TYPE,consumes=CBConstants.CONTENT_TYPE)
+	@ResponseBody
+	public int increaseClickCount(@PathVariable("shopId") int shopId) {
+
+		 return shopService.increaseClickCount(shopId);
+		
+
+	}
 
 }

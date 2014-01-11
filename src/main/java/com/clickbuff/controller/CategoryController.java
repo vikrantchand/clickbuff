@@ -22,7 +22,7 @@ public class CategoryController {
 	private CategoryServcie categoryServcie;
 	private static final Logger LOGGER = Logger.getLogger(UserController.class);
 
-	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(method = RequestMethod.GET, produces = CBConstants.CONTENT_TYPE)
 	@ResponseBody
 	public List<Category> getAllUsers() {
 

@@ -3,6 +3,10 @@ package com.clickbuff.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jca.context.SpringContextResourceAdapter;
+import org.springframework.orm.hibernate3.SpringSessionContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +49,20 @@ public class ShopServiceImpl implements ShopService {
 	@Transactional
 	public Shop updateShop(Shop shop) {
 		return shopDao.update(shop);
+	}
+
+	public int increaseClickCount(int shopId) {
+		if (SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal() instanceof User) {
+		
+			User user = (User) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+			shopDao.increaseClickByOne(shopId, user.getUsername());
+		}
+		else{
+			
+		}
+		return 0;
 	}
 
 }

@@ -6,5 +6,7 @@ import com.clickbuff.model.Shop;
 public interface ShopDao extends GenericDao<Shop, Integer> {
 	
 	public boolean deleteShopById(int id);
+	
+	public int increaseClickByOne(Integer shopId,String userName);
 
 }
