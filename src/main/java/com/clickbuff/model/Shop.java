@@ -29,6 +29,9 @@ public class Shop {
 
 	@Column(name = "OWNER_NAME")
 	private String ownerName;
+	
+	@Column(name="Contact_Number")
+	private String contactNumber;
 
 	@Column(name = "SHOP_ADDRESS")
 	private String address;
@@ -145,6 +148,14 @@ public class Shop {
 
 	public void setUsers(Set<User> users) {
 		Users = users;
+	}
+
+	public String getContactNumber() {
+		return contactNumber;
+	}
+
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
 	}
 
 }
