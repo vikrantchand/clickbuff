@@ -1,8 +1,10 @@
 package com.clickbuff.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.clickbuff.model.Shop;
+import com.clickbuff.vo.ShopBuffMeterVo;
 
 
 public interface ShopService {
@@ -20,5 +22,7 @@ public interface ShopService {
 	  public Shop updateShop(Shop shop);
 	  
 	  public int increaseClickCount(int shopId);
+	  
+	  public Set<ShopBuffMeterVo> getBuffMeter();
 	  
 }

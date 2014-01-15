@@ -1,6 +1,7 @@
 package com.clickbuff.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.clickbuff.constants.CBConstants;
 import com.clickbuff.model.Shop;
 import com.clickbuff.service.ShopService;
+import com.clickbuff.vo.ShopBuffMeterVo;
 
 @Controller
 @RequestMapping("/shop")
@@ -70,6 +72,15 @@ public class ShopController {
 	public int increaseClickCount(@PathVariable("shopId") int shopId) {
 
 		 return shopService.increaseClickCount(shopId);
+		
+
+	}
+	
+	@RequestMapping(value="/buffmeter",method = RequestMethod.GET ,produces=CBConstants.CONTENT_TYPE)
+	@ResponseBody
+	public Set<ShopBuffMeterVo> getBuffMeter() {
+
+		 return shopService.getBuffMeter();
 		
 
 	}
