@@ -2,8 +2,11 @@ package com.clickbuff.controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.clickbuff.constants.CBConstants;
 import com.clickbuff.model.UserDetail;
 import com.clickbuff.service.UserService;
+import com.clickbuff.vo.OnlineUserVo;
 
 @Controller
 @RequestMapping("/user")
@@ -21,6 +25,8 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+
 
 	private static final Logger LOGGER = Logger.getLogger(UserController.class);
 	
@@ -85,6 +91,13 @@ public class UserController {
 		LOGGER.info("User updated successfully UserDetails : "+userDetail.toString());
 		
 		return userDetail;
+	}
+	
+	@RequestMapping(value="/OnlineUsers", method=RequestMethod.GET,produces=CBConstants.CONTENT_TYPE)
+	@ResponseBody
+	public List<OnlineUserVo> getOnlineUSers(){
+		
+		return userService.getOnlineUsers();
 	}
 	
 }

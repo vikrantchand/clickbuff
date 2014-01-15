@@ -2,7 +2,7 @@ package com.clickbuff.enums;
 
 public enum UserAuthorityType {
 	
-		ADMIN("ADMIN"), CLIENT("CLIENT"), USER("USER");
+		ROLE_ADMIN("ADMIN"), ROLE_CLIENT("CLIENT"), ROLE_USER("USER");
 	 
 		private String role;
 	 

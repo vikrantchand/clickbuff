@@ -159,3 +159,13 @@ public class Shop {
 	}
 
 }
+
+/*
+<authentication-manager>
+<authentication-provider>
+        <jdbc-user-service data-source-ref="dataSource"
+                users-by-username-query="select USER_NAME,PASSWORD, ENABLED from users where USER_NAME=?"
+                authorities-by-username-query="select u.username, ur.AUTHORITY from users u, authorities ur        
+                where u.USER_ID = ur.USER_ID and u.USERNAME =?  " />
+</authentication-provider>
+</authentication-manager>*/

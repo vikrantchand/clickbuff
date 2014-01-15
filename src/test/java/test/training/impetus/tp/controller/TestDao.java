@@ -32,7 +32,7 @@ public class TestDao {
 		u.setAltEmail("asdasdasd");
 		u.setAltMobileNo("45454");
 		u.setEmail("asfasf");
-		auto.setUserAuthority(UserAuthorityType.CLIENT);
+		auto.setUserAuthority(UserAuthorityType.ROLE_CLIENT);
 	User user=new User();
 	auto.setUser(user);
 	user.setEnabled(true);

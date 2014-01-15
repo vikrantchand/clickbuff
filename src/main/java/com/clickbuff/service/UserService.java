@@ -3,6 +3,7 @@ package com.clickbuff.service;
 import java.util.List;
 
 import com.clickbuff.model.UserDetail;
+import com.clickbuff.vo.OnlineUserVo;
 
 
 public interface UserService {
@@ -22,6 +23,8 @@ public interface UserService {
 	public void removeUserByUserName(String userName);
 	
 	public UserDetail updateUser(UserDetail userDetail);
+	
+	public List<OnlineUserVo> getOnlineUsers();
 	
 	public UserDetail addUser(UserDetail userDetail);
 	

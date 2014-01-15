@@ -1,5 +1,6 @@
 package com.clickbuff.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -8,8 +9,18 @@ import java.util.List;
 
 
 
+
+
+
+
+
+
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -18,12 +29,16 @@ import com.clickbuff.dao.UserDao;
 import com.clickbuff.exceptions.CustomException;
 import com.clickbuff.model.UserDetail;
 import com.clickbuff.service.UserService;
+import com.clickbuff.vo.OnlineUserVo;
 
 @Service
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Resource(name="sessionRegistry")
+	private SessionRegistryImpl sessionRegistry;
 	
 	private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
 	
@@ -140,6 +155,34 @@ public class UserServiceImpl implements UserService {
 	public UserDetail getUserByEmail(String email) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<OnlineUserVo> getOnlineUsers() {
+		
+		List<Object> list=sessionRegistry.getAllPrincipals();
+		
+		List<OnlineUserVo> onlineUsers=new ArrayList<OnlineUserVo>();
+		
+		for (Object object : list) {
+			String userName=null;
+			User user=null;
+			if(object instanceof User){
+			user=(User)object;
+			}
+			if(!user.equals(null)){
+			userName=user.getUsername();
+			}
+			if(!userName.equals(null)){
+				UserDetail userDetail=userDao.loadUserByUserName(userName);
+				OnlineUserVo onlineUserVo=new OnlineUserVo();
+				onlineUserVo.setName(userDetail.getfName());
+				onlineUserVo.setUserId(userDetail.getAuthority().getUser().getId());
+				onlineUserVo.setUserName(userDetail.getAuthority().getUser().getUserName());
+				onlineUsers.add(onlineUserVo);
+			}
+		}
+	
+		return onlineUsers;
 	}
 
 }
