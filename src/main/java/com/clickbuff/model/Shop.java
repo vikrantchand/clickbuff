@@ -13,11 +13,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "SHOPS")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Shop {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,7 +35,7 @@ public class Shop {
 	@Column(name = "OWNER_NAME")
 	private String ownerName;
 	
-	@Column(name="Contact_Number")
+	@Column(name="CONTACT_NUMBER")
 	private String contactNumber;
 
 	@Column(name = "SHOP_ADDRESS")
@@ -42,7 +47,7 @@ public class Shop {
 	@ManyToMany(cascade = {CascadeType.ALL} ,fetch=FetchType.EAGER)
     @JoinTable(name="User_Clicks", 
                 joinColumns={@JoinColumn(name="SHOP_ID")}, 
-                inverseJoinColumns={@JoinColumn(name="USER_NAME")})
+                inverseJoinColumns={@JoinColumn(name="USER_ID")})
 	private Set<User> Users;
 
 	@Column(name = "ADDED_DATE")
@@ -51,12 +56,9 @@ public class Shop {
 	@Column(name = "LAST_UPDATED")
 	private Date lastUpdated;
 	
-	@Column(name = "CATEGORY_ID")
-	private Integer categoryId;
-
-/*	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name = "CATEGORY_ID")
-	private Category category;*/
+	private Category category;
 	
 	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name = "SHOP_ID")
@@ -78,13 +80,13 @@ public class Shop {
 		this.shopId = shopId;
 	}
 
-/*	public Category getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
 	public void setCategory(Category category) {
 		this.category = category;
-	}*/
+	}
 
 	public String getOwnerName() {
 		return ownerName;
@@ -133,19 +135,9 @@ public class Shop {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public int getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
-	}
-
 	public Set<User> getUsers() {
 		return Users;
 	}
-
 	public void setUsers(Set<User> users) {
 		Users = users;
 	}

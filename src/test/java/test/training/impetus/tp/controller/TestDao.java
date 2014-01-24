@@ -34,16 +34,13 @@ public class TestDao {
 		u.setEmail("asfasf");
 		auto.setUserAuthority(UserAuthorityType.ROLE_CLIENT);
 	User user=new User();
-	auto.setUser(user);
 	user.setEnabled(true);
 	user.setPassword("sdfsdf");
 	user.setUserName("ee");
-		u.setAuthority(auto);
 		
 		new TestDao().userController.addUser(u);
 		
 		Shop s=new Shop();
-		s.setCategoryId(1);
 		s.setAddedDate(new Date());
 		s.setLastUpdated(new Date());
 		

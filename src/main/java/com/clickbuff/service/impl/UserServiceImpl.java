@@ -3,18 +3,6 @@ package com.clickbuff.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
-
-
-
-
-
-
-
-
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -26,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.clickbuff.dao.UserDao;
-import com.clickbuff.exceptions.CustomException;
 import com.clickbuff.model.UserDetail;
 import com.clickbuff.service.UserService;
 import com.clickbuff.vo.OnlineUserVo;
@@ -176,8 +163,8 @@ public class UserServiceImpl implements UserService {
 				UserDetail userDetail=userDao.loadUserByUserName(userName);
 				OnlineUserVo onlineUserVo=new OnlineUserVo();
 				onlineUserVo.setName(userDetail.getfName());
-				onlineUserVo.setUserId(userDetail.getAuthority().getUser().getId());
-				onlineUserVo.setUserName(userDetail.getAuthority().getUser().getUserName());
+				onlineUserVo.setUserId(userDetail.getUser().getAuthority().getUser().getId());
+				onlineUserVo.setUserName(userDetail.getUser().getAuthority().getUser().getUserName());
 				onlineUsers.add(onlineUserVo);
 			}
 		}

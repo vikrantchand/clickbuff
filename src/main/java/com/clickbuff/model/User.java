@@ -9,13 +9,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "USERS")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
 
 	@Id
@@ -25,17 +31,22 @@ public class User {
 
 	@Column(name = "USER_NAME")
 	private String userName;
-	
-/*	@ManyToMany(mappedBy="Users",fetch=FetchType.LAZY)
-	private Set<Shop> clickedShops;*/
 
+	@JsonIgnore
+	@ManyToMany(mappedBy = "Users", fetch = FetchType.EAGER)
+	private Set<Shop> clickedShops;
+
+	@JsonIgnore
 	@Column(name = "ENABLED")
 	private boolean isEnabled;
+	
+	@OneToOne(mappedBy="user",fetch=FetchType.EAGER)
+	private Authority authority;
 
-/*	@JsonIgnore
-	@OneToOne(mappedBy = "user")
-	private Authority authority;*/
+	@OneToOne(mappedBy="user",fetch=FetchType.EAGER)
+	private UserDetail userDetail;
 
+	@JsonIgnore
 	@Column(name = "PASSWORD")
 	private String password;
 
@@ -43,13 +54,13 @@ public class User {
 		return id;
 	}
 
-/*	public Authority getAuthority() {
+	public Authority getAuthority() {
 		return authority;
 	}
 
 	public void setAuthority(Authority authority) {
 		this.authority = authority;
-	}*/
+	}
 
 	public String getUserName() {
 		return userName;
@@ -59,6 +70,7 @@ public class User {
 		this.userName = userName;
 	}
 
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -67,6 +79,7 @@ public class User {
 		this.password = password;
 	}
 
+	@JsonIgnore
 	public boolean isEnabled() {
 		return isEnabled;
 	}
@@ -74,14 +87,16 @@ public class User {
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
 	}
-/*
+
+	@JsonIgnore
 	public Set<Shop> getClickedShops() {
 		return clickedShops;
 	}
 
+	@JsonIgnore
 	public void setClickedShops(Set<Shop> clickedShops) {
 		this.clickedShops = clickedShops;
-	*/
+	}
 
 	/*
 	 * For Future use If required

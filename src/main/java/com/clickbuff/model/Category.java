@@ -13,8 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "CATEGORIES")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Category {
 
 	@Id
@@ -28,8 +32,7 @@ public class Category {
 	@Column(name="DISCRIPTION")
 	private String discription;
 
-	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	@JoinColumn(name="SHOP_ID")
+  @OneToMany(mappedBy="category",fetch = FetchType.EAGER)
 	private Set<Shop> shops;
 
 	public Set<Shop> getShops() {

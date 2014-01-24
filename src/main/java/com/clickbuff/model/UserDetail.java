@@ -2,7 +2,6 @@ package com.clickbuff.model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -33,6 +32,16 @@ public class UserDetail {
 	@Column(name="FAV_PASS_TIME")
 	private String favPassTime;
 	
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "USER_ID")
+	private User user;
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	@Column(name="OCCUPATION")
 	private String occupation;
 	
@@ -63,21 +72,6 @@ public class UserDetail {
 	@Column(name="GENDER")
 	private GenderType gender;
 	
-	
-	
-	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	@JoinColumn(name="AUTHORITY_ID")
-	private Authority authority;
-	
-	
-	
-	public Authority getAuthority() {
-		return authority;
-	}
-	public void setAuthority(Authority authority) {
-		this.authority = authority;
-	}
-
 	public String getfName() {
 		return fName;
 	}
