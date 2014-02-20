@@ -27,8 +27,20 @@ public class Ad{
 	@JoinColumn(name = "AD_ID")
 	private Set<AdImageName> images;
 
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
+
 	@Column(name = "TITLE")
 	private String Tiltle;
+	
+	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@JoinColumn(name = "COMMENT_ID")	
+	private Set<Comment> comments;
 	
 	@Column(name = "SMALL_DESCRIPTION")
 	private StringBuilder summary;
