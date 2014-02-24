@@ -15,9 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.clickbuff.constants.CBConstants;
+import com.clickbuff.enums.UserAuthorityType;
+import com.clickbuff.model.Authority;
+import com.clickbuff.model.User;
 import com.clickbuff.model.UserDetail;
 import com.clickbuff.service.UserService;
 import com.clickbuff.vo.OnlineUserVo;
+import com.clickbuff.vo.UserSignUpResponseVo;
+import com.clickbuff.vo.UserSignUpVo;
 
 @Controller
 @RequestMapping("/user")
@@ -69,15 +74,28 @@ public class UserController {
 	
 	@RequestMapping(method=RequestMethod.POST ,consumes=CBConstants.CONTENT_TYPE,produces=CBConstants.CONTENT_TYPE)
 	@ResponseBody
-	public UserDetail addUser(@RequestBody UserDetail userDetail){
+	public UserSignUpResponseVo addUser(@RequestBody UserSignUpVo userSignUpVo){
+		LOGGER.info("creating new user in database userDetail : "+userSignUpVo.toString());
 		
-		LOGGER.info("creating new user in database userDetail : "+userDetail.toString());
-		
-		userDetail=userService.addUser(userDetail);
+		LOGGER.debug("performing user signup : "+userSignUpVo);
+		UserDetail userDetail=new UserDetail();
+		userDetail.setfName(userSignUpVo.getFirstName());
+		userDetail.setlName(userSignUpVo.getLastName());
+		userDetail.setEmail(userSignUpVo.getEmail());
+		userDetail.setDob(userSignUpVo.getDob());
+		User user=new User();
+		Authority authority=new Authority();
+		authority.setUserAuthority(UserAuthorityType.ROLE_USER);
+		user.setAuthority(authority);
+		user.setEnabled(true);
+		user.setUserName(userSignUpVo.getEmail());
+		user.setPassword(userSignUpVo.getPassword());
+		userDetail.setUser(user);
+		UserSignUpResponseVo u =userService.addUser(userDetail);
 		
 		LOGGER.info("User created successfully UserDetails : "+userDetail.toString());
 		
-		return userDetail;
+		return u;
 	}
 	
 	@RequestMapping(value="/{userId}", method=RequestMethod.PUT,produces=CBConstants.CONTENT_TYPE,consumes=CBConstants.CONTENT_TYPE)

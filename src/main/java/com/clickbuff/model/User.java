@@ -2,6 +2,7 @@ package com.clickbuff.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,14 +13,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "USERS")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
@@ -29,7 +27,7 @@ public class User {
 	@Column(name = "USER_ID")
 	private Integer id;
 
-	@Column(name = "USER_NAME")
+	@Column(name = "USER_NAME",unique=true)
 	private String userName;
 
 	@JsonIgnore
@@ -40,7 +38,7 @@ public class User {
 	@Column(name = "ENABLED")
 	private boolean isEnabled;
 	
-	@OneToOne(mappedBy="user",fetch=FetchType.EAGER)
+	@OneToOne(mappedBy="user",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	private Authority authority;
 
 	@OneToOne(mappedBy="user",fetch=FetchType.EAGER)

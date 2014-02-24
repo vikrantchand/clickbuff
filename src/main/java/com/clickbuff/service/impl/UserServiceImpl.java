@@ -17,6 +17,7 @@ import com.clickbuff.dao.UserDao;
 import com.clickbuff.model.UserDetail;
 import com.clickbuff.service.UserService;
 import com.clickbuff.vo.OnlineUserVo;
+import com.clickbuff.vo.UserSignUpResponseVo;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	
 	public List<UserDetail> getAllUsers() {
 
-		LOGGER.info("Calling UserDoa's findAll() method");
+		LOGGER.debug("Calling UserDoa's findAll() method");
 		
 		return userDao.findAll();
 	}
@@ -41,25 +42,17 @@ public class UserServiceImpl implements UserService {
 		
 		Assert.notNull(id);
 		
-		LOGGER.info("Calling UserDao's findUserById(id) with id : "+id);
+		LOGGER.debug("Calling UserDao's findUserById(id) with id : "+id);
 		
 		return userDao.findById(id);
 	}
 
-	/*public UserDetail getUserByEmail(String email) {
-		
-		Assert.notNull(email);
-		
-		LOGGER.info("Calling UserDao's findUserByEmail(email) with email : "+email);
-		
-		return userDao.loadUserByEmail(email);
-	}*/
 
 	public UserDetail getUserByUserName(String userName) {
 		
 		Assert.notNull(userName);
 		
-		LOGGER.info("Calling UserDao's findUserByEmail(userName) with userName : "+userName);
+		LOGGER.debug("Calling UserDao's findUserByEmail(userName) with userName : "+userName);
 		
 		return userDao.loadUserByUserName(userName);
 	}
@@ -68,7 +61,7 @@ public class UserServiceImpl implements UserService {
 
 		Assert.notNull(userDetail);
 		
-		LOGGER.info("Calling UserDao's delete(entity) with: "+userDetail.toString());
+		LOGGER.debug("Calling UserDao's delete(entity) with: "+userDetail.toString());
 		
 		try{
 			
@@ -76,7 +69,7 @@ public class UserServiceImpl implements UserService {
 		}
 		catch(Exception e){
 			
-			LOGGER.info("Exception Occurs throwing CustomException "+e.getMessage());
+			LOGGER.debug("Exception Occurs throwing CustomException "+e.getMessage());
 			
 			/*throw new CustomException(e.getMessage(),e);*/
 			
@@ -100,7 +93,7 @@ public class UserServiceImpl implements UserService {
 		
 		UserDetail updatedUser=null;
 		
-		LOGGER.info("Calling update Method with UserDetails"+userDetail.toString() );
+		LOGGER.debug("Calling update Method with UserDetails"+userDetail.toString() );
 		
 		try{
 			
@@ -108,7 +101,7 @@ public class UserServiceImpl implements UserService {
 		}
 		catch(Exception e){
 			
-			LOGGER.info("Exception Occurs throwing CustomException "+e.getMessage());
+			LOGGER.debug("Exception Occurs throwing CustomException "+e.getMessage());
 			
 			/*throw new CustomException(e.getMessage(),e);*/
 		}
@@ -116,26 +109,33 @@ public class UserServiceImpl implements UserService {
 		return updatedUser;
 	}
 	@Transactional
-	public UserDetail addUser(UserDetail userDetail) {
+	public UserSignUpResponseVo addUser(UserDetail userDetail) {
 		
 		Assert.notNull(userDetail);
 		
-		UserDetail addedUser=null;
+		UserSignUpResponseVo response=new UserSignUpResponseVo();
 		
-		LOGGER.info("Calling save Method with UserDetails"+userDetail.toString() );
+		LOGGER.debug("Calling save Method with UserDetails"+userDetail.toString() );
 		
 		try{
-			
-			addedUser=userDao.save(userDetail);
+			if(userDao.checkEmail(userDetail.getEmail())){
+			userDao.save(userDetail);
+			}
+			else{
+				response.setEmail(userDetail.getEmail());
+				response.setMsg("User with this mail already registered");
+			}
+
 		}
 		catch(Exception e){
+			e.printStackTrace();
+			LOGGER.debug("Exception Occurs throwing CustomException "+e.getMessage());
 			
-			LOGGER.info("Exception Occurs throwing CustomException "+e.getMessage());
-			
-			/*throw new CustomException(e.getMessage(),e);*/
+			response.setEmail(userDetail.getEmail());
+			response.setMsg(e.getMessage());
 		}
 		
-		return addedUser;
+		return response;
 		
 	}
 

@@ -92,6 +92,4 @@
 		</property>
 	</bean>
 	
-	<!-- <bean id="payCheckThread" class="training.impetus.tp.scheduler.PayCheckThread" scope="prototype"></bean> -->
-
 </beans>

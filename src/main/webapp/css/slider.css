@@ -1,0 +1,87 @@
+.galcolumn{
+	background-color: #000;
+}
+
+.gallery .item{
+	position: relative;
+	/*opacity: 0.8 !important;
+  	filter: alpha(opacity=80) !important;*/
+}
+
+.gallery .item > a{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	z-index: 2;
+	display: inline-block;
+}
+
+.gallery .item > img{
+	max-width: 100%;
+}
+
+.gallery .item .desc{
+	border: 0 solid #fff;
+	padding: 15px;
+	color: #fff !important;
+	position: absolute;
+	width: 100%;
+	top: 0;
+	bottom: 0;
+	-webkit-transition: all .25s;
+  transition: all .25s;
+}
+
+.gallery .item .desc .click{
+	position: absolute;
+	margin: 0;
+	bottom: 0;
+	left: 0;
+	padding: 15px;
+	display:none;
+}
+
+.gallery .item .desc span{
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	font-size: 10px;
+}
+
+.gallery .item:hover .desc,
+.gallery .item:focus .desc,
+.gallery .item:active .desc,
+.gallery .item.active .desc{
+	z-index: 1;
+	display: block;
+background: -webkit-linear-gradient(black,transparent,black); /* For Safari */
+background: -o-linear-gradient(black,transparent,black); /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(black,transparent,black); /* For Firefox 3.6 to 15 */
+background: linear-gradient(black,transparent,black); /* Standard syntax (must be last) */
+}
+.gallery .item:hover .desc span,
+.gallery .item:focus .desc span,
+.gallery .item:active .desc span,
+.gallery .item.active .desc span{
+	display: none;
+}
+
+.gallery .item .desc p{
+	display: none;
+	height: 20px;
+	overflow: hidden;
+}
+.gallery .item:hover .desc p,
+.gallery .item:focus .desc p,
+.gallery .item:active .desc p,
+.gallery .item.active .desc p{
+	display: block;
+}
+.gallery .item:hover .desc .click,
+.gallery .item:focus .desc .click,
+.gallery .item:active .desc .click,
+.gallery .item.active .desc .click{
+	display: block;
+}

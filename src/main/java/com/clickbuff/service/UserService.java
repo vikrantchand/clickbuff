@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.clickbuff.model.UserDetail;
 import com.clickbuff.vo.OnlineUserVo;
+import com.clickbuff.vo.UserSignUpResponseVo;
 
 
 public interface UserService {
@@ -26,6 +27,6 @@ public interface UserService {
 	
 	public List<OnlineUserVo> getOnlineUsers();
 	
-	public UserDetail addUser(UserDetail userDetail);
+	public UserSignUpResponseVo addUser(UserDetail userDetail);
 	
 }

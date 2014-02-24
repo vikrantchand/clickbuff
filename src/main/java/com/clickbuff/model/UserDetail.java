@@ -2,6 +2,7 @@ package com.clickbuff.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -32,7 +33,7 @@ public class UserDetail {
 	@Column(name="FAV_PASS_TIME")
 	private String favPassTime;
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name = "USER_ID")
 	private User user;
 	
@@ -54,7 +55,7 @@ public class UserDetail {
 	@Column(name="ALT_EMAIL")
 	private String altEmail;
 	
-	@Column(name="EMAIL")
+	@Column(name="EMAIL",unique=true)
 	private String email;
 	
 	@Column(name="MOBILE")

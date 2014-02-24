@@ -42,7 +42,7 @@ public abstract class GenericJpaDao<T, ID extends Serializable> implements
 	 */
 	public GenericJpaDao(Class<T> persistentClass) {
 
-		LOGGER.info("Setting the persistent unit type into GENERIC JPA DAO");
+		LOGGER.debug("Setting the persistent unit type into GENERIC JPA DAO");
 
 		this.persistentClass = persistentClass;
 
@@ -55,7 +55,7 @@ public abstract class GenericJpaDao<T, ID extends Serializable> implements
 	 */
 	protected EntityManager getEntityManager() {
 
-		LOGGER.info("getting Entity Manager");
+		LOGGER.debug("getting Entity Manager");
 
 		return entityManager;
 
@@ -70,7 +70,7 @@ public abstract class GenericJpaDao<T, ID extends Serializable> implements
 	@PersistenceContext(type = PersistenceContextType.TRANSACTION)
 	public void setEntityManager(EntityManager entityManager) {
 
-		LOGGER.info("Creating new Entity Manager");
+		LOGGER.debug("Creating new Entity Manager");
 
 		this.entityManager = entityManager;
 
@@ -83,7 +83,7 @@ public abstract class GenericJpaDao<T, ID extends Serializable> implements
 	 */
 	public Class<T> getPersistentClass() {
 
-		LOGGER.info("Getting the persistent Class");
+		LOGGER.debug("Getting the persistent Class");
 
 		return persistentClass;
 	}
@@ -96,7 +96,7 @@ public abstract class GenericJpaDao<T, ID extends Serializable> implements
 	 */
 	public T findById(ID id) {
 
-		LOGGER.info("Finding the Entity by for ID: "
+		LOGGER.debug("Finding the Entity by for ID: "
 				+ getPersistentClass().getSimpleName());
 
 		T entity = (T) getEntityManager().find(getPersistentClass(), id);
@@ -112,7 +112,7 @@ public abstract class GenericJpaDao<T, ID extends Serializable> implements
 	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
 
-		LOGGER.info("Finding all Entites of type "
+		LOGGER.debug("Finding all Entites of type "
 				+ getPersistentClass().getSimpleName());
 
 		return getEntityManager().createQuery(
@@ -126,14 +126,14 @@ public abstract class GenericJpaDao<T, ID extends Serializable> implements
 	 * 
 	 * @return PersistentEntity
 	 */
-	@Transactional
+
 	public T save(T entity) {
 
-		LOGGER.trace("Saving new Entity" + entity.getClass().getSimpleName());
+		LOGGER.debug("Saving new Entity" + entity.getClass().getSimpleName());
 
 		getEntityManager().persist(entity);
 
-		LOGGER.trace("Entity Saved" + entity.getClass().getSimpleName());
+		LOGGER.debug("Entity Saved" + entity.getClass().getSimpleName());
 
 		return entity;
 	}
@@ -145,11 +145,11 @@ public abstract class GenericJpaDao<T, ID extends Serializable> implements
 	 */
 	public T update(T entity) {
 
-		LOGGER.trace("updating Entity" + entity.getClass().getSimpleName());
+		LOGGER.debug("updating Entity" + entity.getClass().getSimpleName());
 
 		T mergedEntity = getEntityManager().merge(entity);
 
-		LOGGER.trace("Entity Updated " + entity.getClass().getSimpleName());
+		LOGGER.debug("Entity Updated " + entity.getClass().getSimpleName());
 
 		return mergedEntity;
 	}
@@ -161,7 +161,7 @@ public abstract class GenericJpaDao<T, ID extends Serializable> implements
 	 */
 	public void delete(T entity) {
 
-		LOGGER.trace("Deleting Entity " + entity.getClass().getSimpleName());
+		LOGGER.debug("Deleting Entity " + entity.getClass().getSimpleName());
 
 		if (BaseEntity.class.isAssignableFrom(persistentClass)) {
 
@@ -176,7 +176,7 @@ public abstract class GenericJpaDao<T, ID extends Serializable> implements
 			getEntityManager().remove(entity);
 		}
 
-		LOGGER.trace("Deleted Entity " + entity.getClass().getSimpleName());
+		LOGGER.debug("Deleted Entity " + entity.getClass().getSimpleName());
 	}
 
 	/*
@@ -186,10 +186,10 @@ public abstract class GenericJpaDao<T, ID extends Serializable> implements
 	 */
 	public void flush() {
 
-		LOGGER.info("Flushing EntityManage");
+		LOGGER.debug("Flushing EntityManage");
 
 		getEntityManager().flush();
 
-		LOGGER.info("EntityManage Flushed");
+		LOGGER.debug("EntityManage Flushed");
 	}
 }

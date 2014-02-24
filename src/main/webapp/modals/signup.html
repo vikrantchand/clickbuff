@@ -1,0 +1,92 @@
+<html><head>
+<script src="js/jquery-migrate-1.2.1.min.js"></script> 
+<script type="text/javascript">
+
+jQuery(document).ready(function($){
+	$('#registerForm').submit(function(){
+		var a=$('#registerForm').serializeArray();
+		var o = {};
+		$.each(a, function() {
+	        if (o[this.name] !== undefined) {
+	            if (!o[this.name].push) {
+	                o[this.name] = [o[this.name]];
+	            }
+	            o[this.name].push(this.value || '');
+	        } else {
+	            o[this.name] = this.value || '';
+	        }
+	    });
+		/* var userEntity=getData(); */
+		$.ajax({
+			 type: 'POST',
+             url: 'user',
+			 dataType: "json",
+             data : JSON.stringify(o),
+             contentType: "application/json",
+             success: function(data){
+            	 if(data.msg=="")
+            	 window.location='index.jsp';
+            	 else
+            		 document.getElementById("json").innerHTML = data.msg;
+            	 $('#json').show();
+			 },
+				error:function(data){
+					document.getElementById("json").innerHTML = data.msg;
+					 $('#json').show();
+			}
+
+		});
+		return false;
+
+		});
+});
+
+</script>
+</head>
+<section class="modal-dialog wrapper-md animated fadeInUp" style="width:800px;"> 
+    	<section class="panel panel-default bg-white m-t-lg"> 
+        	<header class="panel-heading text-center" style="background:rgb(0,152,250); color:white;"> <strong>Sign up</strong>
+            <button type="button" class="close" data-dismiss="modal">&times;</button> 
+            </header> 
+	        <div class="modal-body">
+	        <pre id="json" hidden="true" style="color: RED"></pre>
+            <form id="registerForm" class="panel-body wrapper-lg" method="post"> 
+            <div class="row">
+            	<div class="form-group col-lg-6"> 
+                	<label class="control-label">First Name</label> 
+                    <input type="text" id="firstName" name="firstName" placeholder="First Name" class="form-control input-sm"> 
+                </div> 
+                <div class="form-group col-lg-6">
+                	<label class="control-label">Last Name</label>
+                    <input type="text" name="lastName" placeholder="Last Name" class="form-control input-sm">
+                </div>
+            </div>
+            <div class="row">
+            	<div class="form-group col-lg-6"> 
+                	<label class="control-label">DOB</label> 
+                    <input type="text" name="dob" placeholder="DOB" class="form-control input-sm"> 
+                </div> 
+                <div class="form-group col-lg-6"> 
+                	<label class="control-label">Email</label> 
+                    <input type="email" name="email" placeholder="Enter email" class="form-control input-sm"> 
+                </div> 
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6"> 
+                	<label class="control-label">Password</label> 
+                    <input type="password" name="password" id="inputPassword" placeholder="Password" class="form-control input-sm"> 
+                </div> 
+                <div class="form-group col-lg-6"> 
+                	<label class="control-label">Confirm Password</label> 
+                    <input type="password" id="inputPassword" placeholder="Confirm Password" class="form-control input-sm"> 
+                </div> 
+            </div>
+                <button type="submit" class="btn btn-primary" >Sign up</button> 
+                <div class="line line-dashed"></div> 
+                <p class="text-muted text-center"><small>Already have an account?</small></p> 
+                <a data-dismiss="modal" data-toggle="ajaxModal" href="modals/login.html" class="btn btn-default btn-block">Sign in</a> 
+            </form> 
+        </div>
+	</section>
+</section>
+</html>

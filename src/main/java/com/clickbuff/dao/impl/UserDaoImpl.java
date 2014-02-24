@@ -40,7 +40,8 @@ public class UserDaoImpl extends GenericJpaDao<UserDetail, Integer> implements U
 				email);
 		LOGGER.info("Query Created Successfully : "+query.toString());
 		
-		isAvailable=(Integer) query.getSingleResult() < 1;
+		isAvailable=(Long)query.getSingleResult() < 1;
+		
 		
 		LOGGER.info("returning the boolean result");
 		
