@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="<% out.print("css/clickbuff.css");%>" type="text/css" /> 
 <link rel="stylesheet" href="css/font.css" type="text/css" /> 
 <link rel="stylesheet" href="css/slider.css" type="text/css">
+<link rel="stylesheet" href="js/datepicker/datepicker.css" type="text/css">
 <!--[if lt IE 9]> 
 	<script src="js/ie/html5shiv.js"></script> 
     <script src="js/ie/respond.min.js"></script> 
@@ -38,13 +39,14 @@
     </header> 
     <section id="content"> 
     	<section class="vbox"> 
+                <div id="confirmModalContainer"></div>                
         	<section> 
             	<section class="hbox stretch"> 
         	<aside class="aside">
                        	<section class="vbox"> 
                         <section class="scrollable"> 
         	<section class="panel panel-default">
-            	<header class="header wrapper"><span class="h4">Client Name</span></header>
+            	<header class="header wrapper"><span class="h4">Client Name</span><a class="pull-right btn" style="background:rgb(0,152,250); color:white; margin-top:-7px;" onclick="document.getElementById('updateProfile').style.display='block';">Edit profile</a></header>
             	<section class="panel-body">
                 <div class="row">
                 <div class="col-lg-4">
@@ -100,7 +102,7 @@
                     </form>
                     <div class="line line-dashed"></div>
 	               	<a class="file-input-wrapper btn btn btn-sm" style="background-color:rgb(0,152,250);color:white;"> Update pic <input type="file" title="Browse" class="btn btn-sm btn-info" style="left: -186px;top: 3.5px;" accept="image/jpeg" name="myfile" id="myfile"></a>
-                    <a class="btn btn-sm inline" style="background-color:rgb(0,152,250);color:white;" data-toggle="class:show" data-target="#shopInfoForm">Update Status</a>
+                    <a class="btn btn-sm inline" style="background-color:rgb(0,152,250);color:white;" data-toggle="class:show" data-target="#shopInfoForm">Update Details</a>
                 </div>
                 </div>
                 </section>
@@ -109,13 +111,45 @@
             </section>
         </aside>
             	<aside class="bg-light lter b-l aside-md" id="email-list">
-                	<section class="bg-dark vbox" id="chatBox" style="display:none;"> 
+                	<section class="bg-white vbox" id="updateProfile" style="display:none;"> 
+                    	<header class="bg-light dk header wrapper">
+                        <span>Edit Profile</span>
+                        <span class="pull-right">
+                        	<a href="#" onclick="document.getElementById('updateProfile').style.display='none';">&times;</a>
+                        </span>
+                        </header> 
+                        <section class="scrollable">
+                        <section class="panel-body">
+                    <form class="animated fadeInUp" id="editProfileForm">
+<div class="form-group"><label class="control-label">Full Name</label> <br><input type="text" class="form-control m-b" placeholder="Name"></div>
+            	<div class="form-group"> 
+                	<label class="control-label">DOB</label> <br>
+                    <input type="text" class="combodate form-control parsley-validate" data-format="DD-MM-YYYY" data-template="D MMM YYYY" name="dob" value="01-01-2014" data-required="true">
+                </div> 
+<div class="form-group"><label class="control-label">Gender</label> <br>
+<select><option selected="selected" value="Male"> Male</option><option value="Female"> Female</option></select>
+</div>
+<div class="form-group"><label class="control-label">Country</label> <br><input type="text" class="form-control m-b" placeholder="Country"></div>
+<div class="form-group"><label class="control-label">Mobile</label> <br><input type="text" class="form-control m-b" placeholder="Mobile"></div>
+<div class="form-group"><label class="control-label">Email</label> <br><input type="email" class="form-control m-b" placeholder="Email"></div>
+<div class="form-group"><label class="control-label">City</label> <br><input type="text" class="form-control m-b" placeholder="City"></div>
+<div class="form-group"><label class="control-label">Hobby</label> <br><input type="text" class="form-control m-b" placeholder="Hobby"></div>
+<div class="form-group"><label class="control-label">My Time pass</label> <br><input type="text" class="form-control m-b" placeholder="My Time pass"></div>
+<div class="form-group"><label class="control-label">Occupation</label> <br><input type="text" class="form-control m-b" placeholder="Occupation"></div>
+<div class="form-group"><label class="control-label">About</label> <br><textarea class="form-control m-b" placeholder="About"></textarea></div>
+<input type="submit" class="btn btn-success" value="Update">
+                    </form>
+                        	</section>
+                        </section>
+                    </section>
+
+					<section class="bg-dark vbox" id="chatBox" style="display:none;"> 
                     	<header class="bg-light dk header wrapper">
                         <span class="pull-right">
                         	<a href="#" onclick="document.getElementById('chatBox').style.display='none';">&times;</a>
                         </span>
                         </header> 
-                        <section class="scrollable">
+                        <section class="scrollable" style="margin-bottom:70px;">
                         	<ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg"> 
                             <% for(int i=1;i<15;i++){%>
                             	<li class="list-group-item m-t m-l" id="<%out.print("message-"+i);%>" style="width:80%; <%if(i%3==0) out.print("float:right;"); else out.print("float:left;");%>"> 
@@ -197,17 +231,13 @@
                                 	<a href="#" class="thumb-sm pull-left m-r-sm"> <img src="images/avatar.jpg" class="img-rounded"> </a> 
                                     <a href="#" class="clear"> 
                                     	<small class="pull-right text-muted m-l">
-<a href="#" class="btn btn-xs btn-default" data-toggle="class:hide" data-target="<% out.print("#message-reply-"+i);%>">Reply</a>
+<a href="#" class="btn btn-xs btn-default" onclick="document.getElementById('chatBox').style.display='block';">Reply</a>
 <a href="#" class="btn btn-xs btn-default" onclick="confirmBox('<%out.print("message-"+i);%>','delete')">Delete</a>
                                         </small> 
                                         <strong><a href="public_user_profile.jsp" style="color:#0000FF;">User Name</a></strong><br> 
                                     	<small class="text-muted">3 minuts ago</small><br> 
-                                        <span><a href="#" onclick="document.getElementById('chatBox').style.display='block';">This is a sample message</a></span> 
+                                        <span>This is a sample message</span> 
                                     </a> 
-				                    <form class="animated fadeInDown wrapper hide" id="message-reply-1">
-        				            	<textarea class="form-control m-b" placeholder="Write your message here..."></textarea>
-		                		        <input type="submit" class="btn btn-primary" value="Update">
-		                    		</form>
                                	</li>
                             <% }%>
                             </ul> 
@@ -219,38 +249,27 @@
 
 
 <script src="js/clickbuff.js"></script>
+<script src="js/parsley/parsley.min.js"></script>
+<script src="js/parsley/parsley.extend.js"></script>
+<script src="js/datepicker/datepicker.js"></script>
+<script src="js/datepicker/moment.min.js"></script>
 <script>
 if (window.XMLHttpRequest){xmlhttp=new XMLHttpRequest();}else{xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
 var sh=document.getElementById('ads_wall').offsetHeight+200,limit=5;status=0;
 var buffsh=document.getElementById('buffmeter').offsetHeight-400;
 var usersh=document.getElementById('user_scroll_box').offsetHeight-400;
 
+function hideConfirmDialog(){document.getElementById('confirmModalContainer').innerHTML="";}
+function performAction(id){hideConfirmDialog();document.getElementById(id).style.display='none';}
 function confirmBox(id,operation){
-	var element=document.getElementById(id);
-	var r=confirm('Do you really want to delete this?');
-	if (r==true)
-	  {
-		  element.className+=' hide';
-	  }
-	else
-	  {
-	  }
-}
-
-function buttonClick(id){
-	var btn=document.getElementById(id)
-	if(btn.innerHTML=="Clicked")
-	{
-		btn.innerHTML='<img src="images/cursor.jpg" height="15"> Click</span>';
-		btn.style.background='white';
-		btn.style.color='black';		
-	}
-	else
-	{
-		btn.innerHTML="Clicked";
-		btn.style.background="rgb(0,152,250)";
-		btn.style.color='white';		
-	}
+	var code='<div class="modal-dialog animated fadeIn" style="position:fixed; margin-left:40%; height:200px; width:400px; z-index:1000;" id="confirmModal">';
+        code+='<div class="modal-content"> <div class="modal-body"> Do you really want to delete this? </div>';
+        code+='<div class="modal-footer" style="padding:10px;"> ';
+        code+='<a href="#" class="btn btn-default" onClick="hideConfirmDialog()">Cancel</a> ';
+        code+='<a href="#" class="btn btn-primary" onClick="performAction('+"'"+id+"'"+')">Yes</a>';
+        code+='</div></div></div>';
+	
+	document.getElementById('confirmModalContainer').innerHTML=code;
 }
 </script>
 </body>

@@ -3,9 +3,55 @@
 <head> <meta charset="utf-8" /> 
 <title>ClickBuff.com</title> 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-<link rel="stylesheet" href="css/clickbuff.css" type="text/css" />
+<link rel="stylesheet" href="css/clickbuff.css" type="text/css" /> 
 <link rel="stylesheet" href="css/font.css" type="text/css" /> 
 <link rel="stylesheet" href="css/slider.css" type="text/css">
+<link rel="stylesheet" href="js/datepicker/datepicker.css" type="text/css">
+<script src="js/jquery-migrate-1.2.1.min.js"></script> 
+<script type="text/javascript">
+
+jQuery(document).ready(function($){
+	$('#registerForm').submit(function(){
+		alert("sdfsdf");
+		var a=$('#registerForm').serializeArray();
+		var o = {};
+		$.each(a, function() {
+	        if (o[this.name] !== undefined) {
+	            if (!o[this.name].push) {
+	                o[this.name] = [o[this.name]];
+	            }
+	            o[this.name].push(this.value || '');
+	        } else {
+	            o[this.name] = this.value || '';
+	        }
+	    });
+		/* var userEntity=getData(); */
+		alert("sdfsdf");
+		$.ajax({
+			 type: 'POST',
+             url: 'user',
+			 dataType: "json",
+             data : JSON.stringify(o),
+             contentType: "application/json",
+             success: function(data){
+            	 if(data.msg=="")
+            	 window.location='index.jsp';
+            	 else
+            		 document.getElementById("json").innerHTML = data.msg;
+            	 $('#json').show();
+			 },
+				error:function(data){
+					document.getElementById("json").innerHTML = data.msg;
+					 $('#json').show();
+			}
+
+		});
+		return false;
+
+		});
+});
+
+</script>
 <!--[if lt IE 9]> 
     <script src="js/ie/html5shiv.js"></script> 
     <script src="js/ie/respond.min.js"></script> 
@@ -36,13 +82,13 @@
         	<li> <a class="text-white" href="index.jsp"><span class="h5 font-bold"> Clickbuff</span> </a> </li> 
         </ul>
     	<ul class="nav navbar-nav navbar-right hidden-xs nav-user"> 
-<li><a class="text-white" data-toggle="ajaxModal" href="modals/login.html"><span class="font-bold"><i class="fa fa-sign-in"></i> Sign In</span> </a> </li> 
-<li><a class="text-white" data-toggle="ajaxModal" href="modals/signup.html"><span class="font-bold"><i class="fa fa-user"></i> Sign Up</span> </a> </li> 
+<li><a class="text-white" onClick="document.getElementById('loginForm').className='text-center show'; document.getElementById('signUpForm').className='text-center hide';" href="#"><span class="font-bold"><i class="fa fa-sign-in"></i> Sign In</span> </a> </li> 
+<li><a class="text-white"onClick="document.getElementById('signUpForm').className='text-center show'; document.getElementById('loginForm').className='text-center hide';" href="#"><span class="font-bold"><i class="fa fa-user"></i> Sign Up</span> </a> </li> 
         </ul>
         <form role="search" class="col-lg-4 pull-right" onSubmit="searchResults()" action="#"> 
         	<div class="form-group wrapper m-b-n-xs m-t-n-xs"> 
-            	<div class="input-group"> 
-                	<input type="text" class="form-control input-sm" placeholder="Search"> 
+            	<div class="input-group">
+                   	<input type="text" class="form-control input-sm" placeholder="Search"> 
                     <span class="input-group-btn"><button type="submit" class="btn btn-facebook btn-sm btn-icon"><i class="fa fa-search"></i></button></span>
                 </div> 
             </div> 
@@ -50,6 +96,91 @@
     </header> 
 	<section id="content"> 
     	<section class="vbox"> 
+
+
+<!-- sign up Form-->
+<div class="text-center hide" id="signUpForm" style="width:100%; height:100%; background:rgba(51,51,51,0.6); z-index:1000; position:absolute;">
+<section class="modal-dialog wrapper-md animated fadeInUp" style="width:800px;"> 
+    	<section class="panel panel-default bg-white m-t-lg"> 
+        	<header class="panel-heading text-center" style="background:rgb(0,152,250); color:white;"> <strong>Sign up</strong>
+            <button type="button" class="close" data-dismiss="modal">&times;</button> 
+            </header> 
+	        <div class="modal-body">
+	        <pre id="json" hidden="true" style="color: RED"></pre>
+            <form id="registerForm" class="panel-body wrapper-lg" data-validate="parsley"> 
+            <div class="row">
+            	<div class="form-group col-lg-6"> 
+                	<label class="control-label">First Name</label> 
+                    <input type="text" id="firstName" name="firstName" placeholder="First Name" class="form-control input-sm parsley-validate" data-required="true"> 
+                </div> 
+                <div class="form-group col-lg-6">
+                	<label class="control-label">Last Name</label>
+                    <input type="text" name="lastName" placeholder="Last Name" class="form-control input-sm parsley-validate" data-required="true">
+                </div>
+            </div>
+            <div class="row">
+            	<div class="form-group col-lg-6"> 
+                	<label class="control-label">DOB</label> 
+                    <input type="text" name="dob" placeholder="DOB" class="combodate form-control parsley-validate" data-format="DD-MM-YYYY" data-template="D MMM YYYY" name="dob" value="01-01-2014" data-required="true"> 
+                </div> 
+                <div class="form-group col-lg-6"> 
+                	<label class="control-label">Email</label> 
+                    <input type="email" name="email" placeholder="Enter email" class="form-control input-sm parsley-validate" data-required="true"> 
+                </div> 
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6"> 
+                	<label class="control-label">Password</label> 
+                    <input type="password" name="password" id="inputPassword" placeholder="Password" class="form-control input-sm parsley-validate" data-required="true" data-type="password"> 
+                </div> 
+                <div class="form-group col-lg-6"> 
+                	<label class="control-label">Confirm Password</label> 
+                    <input type="password" id="inputPassword" placeholder="Confirm Password" class="form-control input-sm parsley-validate" data-required="true" data-type="password" data-equalto="#inputPassword"> 
+                </div> 
+            </div>
+                <button type="submit" class="btn btn-primary" >Sign up</button> 
+                <div class="line line-dashed"></div> 
+                <p class="text-muted text-center"><small>Already have an account?</small></p> 
+               <a href="#" onClick="document.getElementById('loginForm').className='text-center show'; document.getElementById('signUpForm').className='text-center hide';" class="btn btn-default btn-block">Sign in</a> 
+             
+            </form> 
+        </div>
+	</section>
+</section>
+</div>
+<!-- /sign up Form-->
+
+
+
+
+<!-- login Form-->
+        	<div class="text-center hide" id="loginForm" style="width:100%; height:100%; background:rgba(51,51,51,0.6); z-index:1000; position:absolute;">
+            <section class="modal-dialog wrapper-md animated fadeInUp text-left" style="width:400px;"> 
+    	<section class="panel panel-default bg-white m-t-lg"> 
+        	<header class="panel-heading text-center" style="background:rgb(0,152,250); color:white;"> 
+            <strong>Sign in</strong>
+            <button type="button" class="close" onClick="document.getElementById('loginForm').className='text-center hide';">&times;</button> 
+            </header> 
+	        <div class="modal-body">
+            <form action="client_home.jsp" class="panel-body wrapper-lg" data-validate="parsley"> 
+            <div class="form-group"> 
+            	<label class="control-label">Email</label> <input type="email" placeholder="Enter email" class="form-control input-lg parsley-validate" data-required="true"> 
+            </div> 
+            <div class="form-group"> 
+            	<label class="control-label">Password</label> <input type="password" id="inputPassword" placeholder="Password" class="form-control input-lg parsley-validate" data-required="true"> 
+            </div> 
+            <a data-dismiss="modal" data-toggle="ajaxModal" href="modals/forgot_password.html" class="pull-right m-t-xs"><small>Forgot password?</small></a> 
+            <button type="submit" class="btn btn-primary">Sign in</button> 
+            <div class="line line-dashed"></div> 
+            <p class="text-muted text-center"><small>Do not have an account?</small></p>
+                <a href="#" onClick="document.getElementById('signUpForm').className='text-center show'; document.getElementById('loginForm').className='text-center hide';" class="btn btn-default btn-block">Create Account</a> 
+            </form> 
+            </div>
+        </section> 
+</section>
+</div>
+<!--/ login Form-->
+
         	<section> 
             	<section class="hbox stretch"> 
                     <aside class="aside-md" style="background-color:#C1E0FF;">
@@ -179,7 +310,7 @@
                             <section class="panel panel-default hidden-xs"> 
                             	<div class="carousel slide auto panel-body bg-dark" id="c-slide"> 
                                     <div class="carousel-inner"> 
-                                    <div class="item active"> 
+                                    <div class="item"> 
                             				<div id="gallery" class="gallery gridalicious row">  
 												<div class="item col-lg-3"><img src="images/shop1.jpg" style="height:150px;">
 											    <div class="desc">
@@ -207,7 +338,7 @@
 												</div>	                        
                                     		</div>
                                     </div> 
-                                    <div class="item"> 
+                                    <div class="item active"> 
                             				<div id="gallery" class="gallery gridalicious row">  
 												<div class="item col-lg-3"><img src="images/shop5.jpg" style="height:150px;">
 											    <div class="desc">
@@ -348,8 +479,9 @@ We are Jaipur Based institute for endorsing performing arts with vision to build
                         </section>
                     </aside>
                     <aside class="b-l aside-sm">
-	                   	<header class="panel-heading"><span class="h6">Online Users <a class="pull-right" href="" data-toggle="class:show" data-target="#user_search"><i class="fa fa-search"></i></a></span></header>
-                    	<section class="vbox">
+	                   	<header class="panel-heading"><span class="h6">Online Users <a class="pull-right" href="" data-toggle="class:show" data-target="#user_search"><i class="fa fa-search"></i></a></span>
+                        </header>
+                    	<section class="vbox hidden-xs">
                         	<section class="scrollable" id="user_scroll_box" onScroll="scrollFunctionUserBoard();">
                                   <section class="panel panel-default no-border">
 			        	                <div class="dropdown pull-left m-r no-border">
@@ -378,6 +510,10 @@ We are Jaipur Based institute for endorsing performing arts with vision to build
     </section>
 </section>
 <script src="js/clickbuff.js"></script>
+<script src="js/parsley/parsley.min.js"></script>
+<script src="js/parsley/parsley.extend.js"></script>
+<script src="js/datepicker/datepicker.js"></script>
+<script src="js/datepicker/moment.min.js"></script>
 <script>
 if (window.XMLHttpRequest){xmlhttp=new XMLHttpRequest();}else{xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
 var sh=document.getElementById('ads_wall').offsetHeight+200,limit=5;status=0;

@@ -40,7 +40,7 @@
         </ul>
     	<ul class="nav navbar-nav navbar-right hidden-xs nav-user"> 
         	<li> <a href="client_home.jsp" class="text-white"><span class="font-bold"><i class="fa fa-home"></i> Home</span> </a> </li> 
-        	<li> <a href="index.html" class="text-white"><span class="font-bold"><i class="fa fa-sign-out"></i> Logout</span> </a> </li> 
+        	<li> <a href="index.jsp" class="text-white"><span class="font-bold"><i class="fa fa-sign-out"></i> Logout</span> </a> </li> 
         </ul>
     </header> 
     <section id="content"> 
@@ -55,7 +55,7 @@
             	<section class="panel-body">
                 <div class="row">
                 <div class="col-lg-4">
-        		<img src="images/avatar.jpg" class="img-full thumbnail thumb-lg">
+        		<a href="modals/image_viewer.jsp" data-toggle="ajaxModal"><img src="images/avatar.jpg" class="img-full thumbnail thumb-lg"></a>
                  </div>
                 <div class="col-lg-8">
     	            <p class="text-left h4">"This is a sample status for user profile."</p><br />
